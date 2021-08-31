@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.65080994, g: 0.666729, b: 0.7075472, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.05
@@ -394,7 +394,7 @@ Camera:
   m_GameObject: {fileID: 1687258581}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -516,12 +516,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63dffc9fbf852184a94588369fb2f6c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionPremiereQuille: {x: 0, y: 0.45, z: 10}
+  positionPremiereQuille: {x: 0, y: 0.45, z: 8}
   prototypeQuille: {fileID: 8531164844514778818, guid: 539846f917f8cf54f9b8d8403b8a158b,
     type: 3}
   quilles: []
-  decalageColonne: 1.5
-  decalageLigne: 1.5
+  decalageColonne: 1
+  decalageLigne: 1
 --- !u!1001 &2054010503
 PrefabInstance:
   m_ObjectHideFlags: 0
