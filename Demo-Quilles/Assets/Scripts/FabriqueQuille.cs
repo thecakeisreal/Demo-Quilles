@@ -48,7 +48,11 @@ public class FabriqueQuille : MonoBehaviour
             }
 
             // Position de la prochaine quille
-            pos = positionPremiereQuille + new Vector3(colonne * decalageColonne - (ligne % 2) * decalageColonne * 0.5f - 0.5f * (ligne - ligne % 2) * decalageColonne, 0f, ligne * decalageLigne);
+            pos = positionPremiereQuille + new Vector3(
+                colonne * decalageColonne
+                - (ligne % 2) * decalageColonne * 0.5f 
+                - (ligne - ligne % 2) * decalageColonne * 0.5f, 
+                0f, ligne * decalageLigne);
             quilles[i] = quille;
         }
     }
