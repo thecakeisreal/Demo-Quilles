@@ -255,7 +255,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -422,6 +422,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: cbb16bad1075861468ec0e2e3577d144,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 25848ceebc47519408afebca9f6599cf, type: 2}
     - target: {fileID: 919132149155446097, guid: cbb16bad1075861468ec0e2e3577d144,
         type: 3}
       propertyPath: m_Name
@@ -651,15 +656,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boule: {fileID: 74077370}
   fleche: {fileID: 1558631268}
-  decalageInitialFleche: {x: 0, y: 0, z: 2}
+  decalageInitialFleche: {x: 0, y: -0.25, z: 3}
   vitesse: 2
   vitesseRotation: 45
+  tauxChmgtForce: 0.2
   toucheGauche: 97
   toucheDroite: 100
   toucheRotationGauche: 113
   toucheRotationDroite: 101
+  toucheAugmenterForce: 119
+  toucheDiminuerForce: 115
   limiteX: 3.25
   rotationMax: 60
+  forceMinimale: 0
+  forceMaximale: 10
+  couleurForceMin: {r: 0.10005367, g: 1, b: 0, a: 0}
+  couleurForceMax: {r: 1, g: 0, b: 0, a: 0}
 --- !u!4 &1836313630
 Transform:
   m_ObjectHideFlags: 0

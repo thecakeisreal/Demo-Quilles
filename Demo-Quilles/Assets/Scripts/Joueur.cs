@@ -10,8 +10,10 @@ public class Joueur : MonoBehaviour
     public Vector3 decalageInitialFleche;
     public float vitesse;
     public float vitesseRotation;
+    public float tauxChmgtForce;
 
     private float rotationInitialeFleche;
+    private float forceLancer;                  // Force du lancer
 
     // Contrôles
     [Header("Contrôles")]
@@ -19,17 +21,24 @@ public class Joueur : MonoBehaviour
     public KeyCode toucheDroite = KeyCode.D;
     public KeyCode toucheRotationGauche = KeyCode.Q;
     public KeyCode toucheRotationDroite = KeyCode.E;
+    public KeyCode toucheAugmenterForce = KeyCode.W;
+    public KeyCode toucheDiminuerForce = KeyCode.S;
 
     // Bornes
     [Header("Bornes")]
     public float limiteX;
     public float rotationMax;
+    public float forceMinimale;
+    public float forceMaximale;
+    public Color couleurForceMin;
+    public Color couleurForceMax;
 
     // Start is called before the first frame update
     void Start()
     {
         fleche.transform.position = boule.transform.position + decalageInitialFleche;
         rotationInitialeFleche = fleche.transform.rotation.eulerAngles.y;
+        fleche.GetComponent<MeshRenderer>().material.color = couleurForceMin;
     }
 
     // Update is called once per frame
@@ -67,6 +76,24 @@ public class Joueur : MonoBehaviour
             {
                 fleche.transform.RotateAround(boule.transform.position, Vector3.up, -1 * vitesseRotation * Time.deltaTime);
             }
+        }
+
+        // Force du lancer
+        if (Input.GetKey(toucheAugmenterForce))
+        {
+            forceLancer += tauxChmgtForce * Time.deltaTime;
+            forceLancer = Mathf.Clamp01(forceLancer);
+
+            fleche.GetComponent<MeshRenderer>().material.color = Color.Lerp(couleurForceMin, couleurForceMax, forceLancer);
+            //fleche.transform.localScale = Vector3.one + Vector3.forward * forceLancer;
+        }
+        if (Input.GetKey(toucheDiminuerForce))
+        {
+            forceLancer -= tauxChmgtForce * Time.deltaTime;
+            forceLancer = Mathf.Clamp01(forceLancer);
+
+            fleche.GetComponent<MeshRenderer>().material.color = Color.Lerp(couleurForceMin, couleurForceMax, forceLancer);
+            //fleche.transform.localScale = Vector3.one + Vector3.forward * forceLancer;
         }
     }
 }
