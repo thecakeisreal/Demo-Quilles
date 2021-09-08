@@ -23,6 +23,7 @@ public class Joueur : MonoBehaviour
     public KeyCode toucheRotationDroite = KeyCode.E;
     public KeyCode toucheAugmenterForce = KeyCode.W;
     public KeyCode toucheDiminuerForce = KeyCode.S;
+    public KeyCode toucheLancer = KeyCode.Space;
 
     // Bornes
     [Header("Bornes")]
@@ -38,7 +39,7 @@ public class Joueur : MonoBehaviour
     {
         fleche.transform.position = boule.transform.position + decalageInitialFleche;
         rotationInitialeFleche = fleche.transform.rotation.eulerAngles.y;
-        fleche.GetComponent<MeshRenderer>().material.color = couleurForceMin;
+        fleche.GetComponent<MeshRenderer>().material.color =    couleurForceMin;
     }
 
     // Update is called once per frame
@@ -94,6 +95,15 @@ public class Joueur : MonoBehaviour
 
             fleche.GetComponent<MeshRenderer>().material.color = Color.Lerp(couleurForceMin, couleurForceMax, forceLancer);
             //fleche.transform.localScale = Vector3.one + Vector3.forward * forceLancer;
+        }
+
+        if(Input.GetKeyDown(toucheLancer))
+        {
+            Rigidbody rigidbodyBoule = boule.GetComponent<Rigidbody>();
+            Vector3 directionLancer = fleche.transform.position - boule.transform.position;
+            directionLancer.y = 0f;
+            rigidbodyBoule.AddForce(directionLancer.normalized * Mathf.Lerp(forceMinimale, forceMaximale, forceLancer),
+                ForceMode.Impulse);
         }
     }
 }
