@@ -11,7 +11,7 @@ public class DetecteurQuilles : MonoBehaviour
 
     // Événement indiquant qu'une quille est tombée
     // La quille tombée est celle passée en paramètre
-    public event Action<GameObject> quilleTombee;
+    public event Action<Quille> quilleTombee;
 
     // Initialisation avant l'affichage à l'écran
     private void Awake()
@@ -27,7 +27,7 @@ public class DetecteurQuilles : MonoBehaviour
         {
             NbQuillesTombees++;
             // Lance l'événement. Tous les écouteurs (listener) sont notifiés et leur méthode est appelée.
-            quilleTombee?.Invoke(other.gameObject);
+            quilleTombee?.Invoke(other.gameObject.GetComponent<Quille>());
         }
     }
 }

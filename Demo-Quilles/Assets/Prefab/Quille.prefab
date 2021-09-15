@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7882483839400230679}
   - component: {fileID: 983450732916087238}
   - component: {fileID: 7678544512440571363}
+  - component: {fileID: 8099448816959706060}
   m_Layer: 0
   m_Name: Quille
   m_TagString: Quille
@@ -114,3 +115,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8099448816959706060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8531164844514778818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e66d7ca1ca934441a0ddbf84ff901bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -443,6 +443,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delaiAttenteQuille: 4
   detecteurQuille: {fileID: 572237308}
+  boule: {fileID: 919132148249278594}
 --- !u!4 &1256383571
 Transform:
   m_ObjectHideFlags: 0
@@ -787,7 +788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionPremiereQuille: {x: 0, y: 0.45, z: 8}
-  prototypeQuille: {fileID: 8531164844514778818, guid: 539846f917f8cf54f9b8d8403b8a158b,
+  prototypeQuille: {fileID: 8099448816959706060, guid: 539846f917f8cf54f9b8d8403b8a158b,
     type: 3}
   quilles: []
   decalageColonne: 1
@@ -891,6 +892,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6707864859986464664}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &919132148249278594 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 919132148249278594, guid: 32cc1936072db724182e6e515157ac49,
+    type: 3}
+  m_PrefabInstance: {fileID: 6707864859986464664}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148249278593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c364bb4f44f2004f96ffdffe36b91b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &919132149019822811 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6480989351852295120, guid: af03ccaf909e36548b5ba68cd1974bcc,

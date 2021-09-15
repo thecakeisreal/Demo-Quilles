@@ -17,6 +17,9 @@ public class ControleurJeu : MonoBehaviour
     // Objet détectant les quilles tombées
     public DetecteurQuilles detecteurQuille;
 
+    // Référence sur la boule de quille
+    public Boule boule;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,10 +34,11 @@ public class ControleurJeu : MonoBehaviour
     }
 
     // Appelé lorsqu'une quille tombe
-    private void GererQuilleTombee(GameObject quille)
+    private void GererQuilleTombee(Quille quille)
     {
         // On réinitialise le temps d'attente pour attendre 4 secondes après que la dernière quille soit tombée
         tempsAttenteEcoule = 0f;
+        quille.EstTombee = true;
 
         if (!delaiActif)
         {
@@ -53,5 +57,9 @@ public class ControleurJeu : MonoBehaviour
         }
 
         Debug.Log(detecteurQuille.NbQuillesTombees);
+        
+        // Réinitialisation des objets
+        boule.ReinitialiserPosition();
+        FabriqueQuille.Instance.CreerQuilles();
     }
 }
