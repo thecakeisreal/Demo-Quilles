@@ -44,14 +44,13 @@ public class FabriqueQuille : MonoBehaviour
     }
 
     // Crée et dispose un nombre de quilles selon la valeur de la constante NOMBRE_QUILLES
-    public void CreerQuilles()
+    public void CreerQuilles(bool releverToutesLesQuilles = false)
     {
         int ligne = 0, colonne = 0;
         Vector3 pos = positionPremiereQuille;
 
         for (int i = 0; i < NOMBRE_QUILLES; i++)
         {
-            
             // Réutilise les quilles existantes / Crée une nouvelle quille au besoin
             if (quilles[i] == null)
             {
@@ -62,7 +61,8 @@ public class FabriqueQuille : MonoBehaviour
             Quille quille = quilles[i];
 
             // Désactive les quilles tombées ou laisse active celles debouts
-            quille.gameObject.SetActive(!quille.EstTombee);
+            quille.gameObject.SetActive(releverToutesLesQuilles || !quille.EstTombee);
+            
 
             // Applique les positions et rotations de base à la quille
             quille.transform.position = pos;

@@ -37,10 +37,19 @@ public class Joueur : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ReinitialiserJoueur();
+    }
+
+    // Replace la flèche à sa position initiale
+    public void ReinitialiserJoueur()
+    {
         fleche.transform.position = boule.transform.position + decalageInitialFleche;
         rotationInitialeFleche = fleche.transform.rotation.eulerAngles.y;
-        fleche.GetComponent<MeshRenderer>().material.color =    couleurForceMin;
+        fleche.GetComponent<MeshRenderer>().material.color = couleurForceMin;
+
+        forceLancer = 0f;
     }
+
 
     // Update is called once per frame
     void Update()
