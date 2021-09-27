@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8280796159776913350}
   - component: {fileID: 6129323717030511372}
   - component: {fileID: 4813836539242585990}
+  - component: {fileID: 7245899502116184428}
   m_Layer: 0
   m_Name: Dalot droit
   m_TagString: Untagged
@@ -96,3 +97,15 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -255351112304041829, guid: cf52c3176de8d6e4aa0cb5da815df5a6, type: 3}
+--- !u!114 &7245899502116184428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5624792533597201113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bcffb7638293c543bf0153da563c3c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
