@@ -5,6 +5,9 @@ using UnityEngine;
 // Gère la logique du jeu et le tour du joueur
 public class ControleurJeu : MonoBehaviour
 {
+    // Implémentation du singleton
+    public static ControleurJeu Instance { get; private set; }
+
     public const int NOMBRE_LANCERS = 21;
     public const int NOMBRE_CARREAU = (NOMBRE_LANCERS - 1) / 2;
 
@@ -32,6 +35,18 @@ public class ControleurJeu : MonoBehaviour
     // Référence du joueur
     public Joueur joueur;
 
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,9 +66,14 @@ public class ControleurJeu : MonoBehaviour
     // Appelé lorsqu'une quille tombe
     private void GererQuilleTombee(Quille quille)
     {
+        quille.EstTombee = true;
+        PartirCompteurFinTour();
+    }
+
+    public void PartirCompteurFinTour()
+    {
         // On réinitialise le temps d'attente pour attendre 4 secondes après que la dernière quille soit tombée
         tempsAttenteEcoule = 0f;
-        quille.EstTombee = true;
 
         if (!delaiActif)
         {
