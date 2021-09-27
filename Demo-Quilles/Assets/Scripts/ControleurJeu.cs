@@ -9,6 +9,7 @@ public class ControleurJeu : MonoBehaviour
     public static ControleurJeu Instance { get; private set; }
 
     public const int NOMBRE_LANCERS = 21;
+    public const int NOMBRE_CARREAU = (NOMBRE_LANCERS - 1) / 2;
 
     // Délai d'attente après la dernière quille tombée pour indiquer la fin du tour
     public float delaiAttenteQuille;
@@ -121,5 +122,68 @@ public class ControleurJeu : MonoBehaviour
         FabriqueQuille.Instance.CreerQuilles(releverToutesLesQuilles);
 
         Debug.Log("Prochain tour " + tour);
+    }
+
+    private int CalculerScore()
+    {
+        int score = 0;
+
+        // On compte séparément le 9e et 10e carreau
+        for (int i = 0; i < NOMBRE_CARREAU - 2; i++)
+        {
+            int quillesCarreau = nombreQuillesTombees[i * 2] + nombreQuillesTombees[i * 2 + 1];
+            score += quillesCarreau;
+
+            // Abat ou réserve
+            if (quillesCarreau == FabriqueQuille.NOMBRE_QUILLES)
+            {
+                int quillesLancerSuivant = nombreQuillesTombees[(i + 1) * 2];
+                // Réserve
+                score += quillesLancerSuivant;
+
+                // Abat
+                if (nombreQuillesTombees[i * 2] == FabriqueQuille.NOMBRE_QUILLES)
+                {
+                    if (quillesLancerSuivant == FabriqueQuille.NOMBRE_QUILLES)  // Deux abat en ligne
+                    {
+                        score += nombreQuillesTombees[(i + 2) * 2];  // 2e carreau en avant
+                    }
+                    else
+                    {
+                        score += nombreQuillesTombees[((i + 1) * 2) + 1];    // Le 2e lancé du prochain carreau
+                    }
+                }
+                else // Réserve
+                {
+                        // Lancer suivant
+                }
+            }
+        }
+
+        //9e carreau
+        int avantDernierCarreau = NOMBRE_CARREAU - 2;
+        int quillesADCarreau = nombreQuillesTombees[avantDernierCarreau * 2] + nombreQuillesTombees[avantDernierCarreau * 2 + 1];
+        if (quillesADCarreau == FabriqueQuille.NOMBRE_QUILLES)
+        {
+            score += nombreQuillesTombees[(avantDernierCarreau + 1) * 2];
+
+            // Abat
+            if (nombreQuillesTombees[avantDernierCarreau * 2] == FabriqueQuille.NOMBRE_QUILLES)
+            {
+                // Lancer 1 et 2 du 10 carreau peu importe ce qui se passe
+                score += nombreQuillesTombees[(avantDernierCarreau + 1) * 2 + 1];  
+            }
+            
+        }
+
+        //10e carreau
+        int dernierCarreau = NOMBRE_CARREAU - 1;
+        int quillesDernierCarreau = nombreQuillesTombees[dernierCarreau * 2] + nombreQuillesTombees[dernierCarreau * 2 + 1];
+        if(quillesDernierCarreau == FabriqueQuille.NOMBRE_QUILLES)
+        {
+            score += quillesDernierCarreau + nombreQuillesTombees[dernierCarreau * 2 + 2];  // Dernier lancer
+        }
+
+        return score;
     }
 }
