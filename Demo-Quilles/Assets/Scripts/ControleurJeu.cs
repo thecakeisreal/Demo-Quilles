@@ -32,6 +32,9 @@ public class ControleurJeu : MonoBehaviour
     // Numéro du tour joué
     private int tour;
 
+    // Temps d'attente initial (si on fait un dalot
+    public int tempsAttenteInitial;
+
     // Référence du joueur
     public Joueur joueur;
 
@@ -56,6 +59,32 @@ public class ControleurJeu : MonoBehaviour
         // Inscrit la méthode à l'événement lancé par détecteur quille
         detecteurQuille.quilleTombee += GererQuilleTombee;
     }
+
+    // Présent uniquement dans le DEBUG, ne sera pas inclus dans le code final
+#if UNITY_EDITOR
+    private void Update()
+    {
+        // Réserve
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            nombreQuillesTombees[tour] = 3;
+            nombreQuillesTombees[tour] = 7;
+
+            tour += 2;
+        }
+        // Abat
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            nombreQuillesTombees[tour] = 10;
+            tour += 1;
+            // Avant le dernier carreau
+            if(tour < 18)
+            {
+                tour += 1;
+            }
+        }
+    }
+#endif
 
     private void OnDestroy()
     {
@@ -93,6 +122,8 @@ public class ControleurJeu : MonoBehaviour
 
         // Avancement de tour
         nombreQuillesTombees[tour] = detecteurQuille.NbQuillesTombees;
+        ControleurUI.Instance.AfficherQuillesTombees(nombreQuillesTombees[tour]);
+
         // Si abat avant le 18e tour
         if (nombreQuillesTombees[tour] == FabriqueQuille.NOMBRE_QUILLES && tour % 2 == 0
             && tour < NOMBRE_LANCERS - 3)
@@ -114,14 +145,15 @@ public class ControleurJeu : MonoBehaviour
         {
             releverToutesLesQuilles = true;
         }
-        Debug.Log(detecteurQuille.NbQuillesTombees);
+        
 
         // Réinitialisation des objets
         boule.ReinitialiserPosition();
         joueur.ReinitialiserJoueur();
         FabriqueQuille.Instance.CreerQuilles(releverToutesLesQuilles);
 
-        Debug.Log("Prochain tour " + tour);
+        Debug.Log("Pointage " + CalculerScore());
+        delaiActif = false;
     }
 
     private int CalculerScore()
@@ -150,12 +182,8 @@ public class ControleurJeu : MonoBehaviour
                     }
                     else
                     {
-                        score += nombreQuillesTombees[((i + 1) * 2) + 1];    // Le 2e lancé du prochain carreau
+                        score += nombreQuillesTombees[((i + 1) * 2) + 1];    // Le 2e lancer du prochain carreau
                     }
-                }
-                else // Réserve
-                {
-                        // Lancer suivant
                 }
             }
         }

@@ -37,6 +37,7 @@ public class Joueur : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rotationInitialeFleche = fleche.transform.rotation.eulerAngles.y;
         ReinitialiserJoueur();
     }
 
@@ -44,7 +45,7 @@ public class Joueur : MonoBehaviour
     public void ReinitialiserJoueur()
     {
         fleche.transform.position = boule.transform.position + decalageInitialFleche;
-        rotationInitialeFleche = fleche.transform.rotation.eulerAngles.y;
+        fleche.transform.rotation = Quaternion.Euler(0f, rotationInitialeFleche, 0f);
         fleche.GetComponent<MeshRenderer>().material.color = couleurForceMin;
 
         forceLancer = 0f;
