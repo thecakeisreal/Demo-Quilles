@@ -62,12 +62,8 @@ public class FabriqueQuille : MonoBehaviour
 
             // Désactive les quilles tombées ou laisse active celles debouts
             quille.gameObject.SetActive(releverToutesLesQuilles || !quille.EstTombee);
+            quille.Reinitialiser(releverToutesLesQuilles, pos);
             
-
-            // Applique les positions et rotations de base à la quille
-            quille.transform.position = pos;
-            quille.transform.rotation = Quaternion.identity;
-
             colonne++;
             if (colonne > ligne)
             {
