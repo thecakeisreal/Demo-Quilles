@@ -39,6 +39,10 @@ public class ControleurJeu : MonoBehaviour
     // Référence du joueur
     public Joueur joueur;
 
+    // Événements de mise à jour de l'interface graphique
+    public delegate void MiseAJourScoreDel(int carreau, int premierLancer, int deuxiemeLancer, int troisiemeLancer, int scoreCarreau);
+    public event MiseAJourScoreDel OnMiseAJourScore;
+
     private void Awake()
     {
         if(Instance == null)
@@ -86,8 +90,6 @@ public class ControleurJeu : MonoBehaviour
                 tour += 1;
             }
         }
-
-        
     }
 #endif
 
@@ -159,6 +161,7 @@ public class ControleurJeu : MonoBehaviour
         detecteurQuille.ReinitialiserCompteur();
 
         FabriqueQuille.Instance.CreerQuilles(releverToutesLesQuilles);
+        CalculerScore();
         delaiActif = false;
     }
 
@@ -192,7 +195,9 @@ public class ControleurJeu : MonoBehaviour
                         score += nombreQuillesTombees[((i + 1) * 2) + 1];    // Le 2e lancer du prochain carreau
                     }
                 }
-            }           
+            }
+
+            OnMiseAJourScore?.Invoke(i, nombreQuillesTombees[i * 2], nombreQuillesTombees[i * 2 + 1], 0, score);
         }
 
         //9e carreau
@@ -210,6 +215,7 @@ public class ControleurJeu : MonoBehaviour
                 score += nombreQuillesTombees[(avantDernierCarreau + 1) * 2 + 1];  
             }
         }
+        OnMiseAJourScore?.Invoke(avantDernierCarreau, nombreQuillesTombees[avantDernierCarreau * 2], nombreQuillesTombees[avantDernierCarreau * 2 + 1], 0, score);
 
         //10e carreau
         int dernierCarreau = NOMBRE_CARREAU - 1;
@@ -219,6 +225,7 @@ public class ControleurJeu : MonoBehaviour
         {
             score += quillesDernierCarreau + nombreQuillesTombees[dernierCarreau * 2 + 2];  // Dernier lancer
         }
+        OnMiseAJourScore?.Invoke(dernierCarreau, nombreQuillesTombees[dernierCarreau * 2], nombreQuillesTombees[dernierCarreau * 2 + 1], nombreQuillesTombees[dernierCarreau * 2 + 2], score);
 
         return score;
     }
