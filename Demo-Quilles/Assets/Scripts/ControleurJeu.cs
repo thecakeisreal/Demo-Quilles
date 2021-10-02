@@ -1,6 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using System.Linq;
 
 // Gère la logique du jeu et le tour du joueur
 public class ControleurJeu : MonoBehaviour
@@ -55,6 +56,7 @@ public class ControleurJeu : MonoBehaviour
     {
         tour = 0;
         nombreQuillesTombees = new int[NOMBRE_LANCERS];
+        nombreQuillesTombees = nombreQuillesTombees.Select(x => -1).ToArray();  // Remplit le tableau de -1
 
         // Inscrit la méthode à l'événement lancé par détecteur quille
         detecteurQuille.quilleTombee += GererQuilleTombee;
@@ -68,7 +70,7 @@ public class ControleurJeu : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Z))
         {
             nombreQuillesTombees[tour] = 3;
-            nombreQuillesTombees[tour] = 7;
+            nombreQuillesTombees[tour + 1] = 7;
 
             tour += 2;
         }
@@ -76,6 +78,7 @@ public class ControleurJeu : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.X))
         {
             nombreQuillesTombees[tour] = 10;
+            nombreQuillesTombees[tour + 1] = 0;
             tour += 1;
             // Avant le dernier carreau
             if(tour < 18)
@@ -83,6 +86,8 @@ public class ControleurJeu : MonoBehaviour
                 tour += 1;
             }
         }
+
+        
     }
 #endif
 
@@ -128,6 +133,7 @@ public class ControleurJeu : MonoBehaviour
         if (nombreQuillesTombees[tour] == FabriqueQuille.NOMBRE_QUILLES && tour % 2 == 0
             && tour < NOMBRE_LANCERS - 3)
         {
+            nombreQuillesTombees[tour + 1] = 0; // Mise à jour pour enlever le -1
             tour += 2;
         }
         else
@@ -150,12 +156,13 @@ public class ControleurJeu : MonoBehaviour
         // Réinitialisation des objets
         boule.ReinitialiserPosition();
         joueur.ReinitialiserJoueur();
-        FabriqueQuille.Instance.CreerQuilles(releverToutesLesQuilles);
+        detecteurQuille.ReinitialiserCompteur();
 
-        Debug.Log("Pointage " + CalculerScore());
+        FabriqueQuille.Instance.CreerQuilles(releverToutesLesQuilles);
         delaiActif = false;
     }
 
+    // Calcule le score de tous les carreaux
     private int CalculerScore()
     {
         int score = 0;
@@ -185,12 +192,13 @@ public class ControleurJeu : MonoBehaviour
                         score += nombreQuillesTombees[((i + 1) * 2) + 1];    // Le 2e lancer du prochain carreau
                     }
                 }
-            }
+            }           
         }
 
         //9e carreau
         int avantDernierCarreau = NOMBRE_CARREAU - 2;
         int quillesADCarreau = nombreQuillesTombees[avantDernierCarreau * 2] + nombreQuillesTombees[avantDernierCarreau * 2 + 1];
+        score += quillesADCarreau;
         if (quillesADCarreau == FabriqueQuille.NOMBRE_QUILLES)
         {
             score += nombreQuillesTombees[(avantDernierCarreau + 1) * 2];
@@ -201,12 +209,12 @@ public class ControleurJeu : MonoBehaviour
                 // Lancer 1 et 2 du 10 carreau peu importe ce qui se passe
                 score += nombreQuillesTombees[(avantDernierCarreau + 1) * 2 + 1];  
             }
-            
         }
 
         //10e carreau
         int dernierCarreau = NOMBRE_CARREAU - 1;
         int quillesDernierCarreau = nombreQuillesTombees[dernierCarreau * 2] + nombreQuillesTombees[dernierCarreau * 2 + 1];
+        score += quillesDernierCarreau;
         if(quillesDernierCarreau == FabriqueQuille.NOMBRE_QUILLES)
         {
             score += quillesDernierCarreau + nombreQuillesTombees[dernierCarreau * 2 + 2];  // Dernier lancer

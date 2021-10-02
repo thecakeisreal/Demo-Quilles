@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // Détecte quelles quilles sont tombées
@@ -29,5 +27,11 @@ public class DetecteurQuilles : MonoBehaviour
             // Lance l'événement. Tous les écouteurs (listener) sont notifiés et leur méthode est appelée.
             quilleTombee?.Invoke(other.gameObject.GetComponent<Quille>());
         }
+    }
+
+    // On remet le compteur à 0 au début du nouveau lancer
+    public void ReinitialiserCompteur()
+    {
+        NbQuillesTombees = 0;
     }
 }

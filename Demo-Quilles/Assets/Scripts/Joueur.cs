@@ -44,11 +44,11 @@ public class Joueur : MonoBehaviour
     // Replace la flèche à sa position initiale
     public void ReinitialiserJoueur()
     {
+        forceLancer = 0f;
+
         fleche.transform.position = boule.transform.position + decalageInitialFleche;
         fleche.transform.rotation = Quaternion.Euler(0f, rotationInitialeFleche, 0f);
         fleche.GetComponent<MeshRenderer>().material.color = couleurForceMin;
-
-        forceLancer = 0f;
     }
 
 
